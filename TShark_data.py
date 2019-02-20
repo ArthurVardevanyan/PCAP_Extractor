@@ -4,8 +4,10 @@ import os
 
 
 def TShark_data(Spath, fileList):
-    os.system("tshark -r "+Spath+"WireShark/" + fileList[0]+" -n  -z conv,ip -z endpoints,ip -T fields -e ipv6  >"+Spath+"Tables.txt")
+    #Strips the PCAP File into usefull information and stores it a temp txt file.
+    os.system("tshark -r "+Spath+"TShark/" + fileList[0]+" -n  -z conv,ip -z endpoints,ip -T fields -e ipv6  >"+Spath+"Tables.txt") 
     count = 0
+    #Makes the data cleaner for scrubbing.
     with open(Spath+'Tables.txt') as infile, open(Spath+'Table_Condensend.txt', 'w') as outfile:
         for line in infile:
             if not line.strip():
@@ -24,6 +26,8 @@ def TShark_data(Spath, fileList):
             thinned = " ".join(newstr3.split()) + "\n"
 
             outfile.write(thinned)  # non-empty line. Write it to output
+    #Puts the Data into a variable
+    #Todo: Remove Unnessary File and Write dircetly to variable.
     with open(Spath+"Table_Condensend.txt") as textFile:
         data = [line.split() for line in textFile]
 
