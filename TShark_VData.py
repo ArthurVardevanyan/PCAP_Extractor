@@ -1,91 +1,100 @@
 import datetime
 
-def TShark_Setup(data, EData,CData):
-        
-        i=0
-        j = 0
-        while data[j]:
-            EData.append([])
-            for i in range(0,7):
-                if "." in data[j][i]:
-                    EData[j].append(data[j][i])
+def TShark_Setup(data, EData,CData): #Imports the data into a 2D list for easy access. EData: EndpointData & CData: Conversation Data
+        col = 0
+        row = 0
+        #Endpoint Data
+        while data[row]: 
+            EData.append([]) 
+            for col in range(0,7):
+                if "." in data[row][col]:
+                    EData[row].append(data[row][col])
                 else:
-                    EData[j].append(int(data[j][i]))
-            EData[j].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
-            EData[j].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
-
-            i = 0
-            j += 1
-
-        j += 1
-        i = 0
-        dSplt = j
-        j = 0
-        
-        while dSplt < len(data):
+                    EData[row].append(int(data[row][col]))
+            EData[row].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+            EData[row].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+            EData[row].append(None) #Add Blank Sections for IPTrace Function
+            EData[row].append(None)
+            EData[row].append(None)
+            EData[row].append(None)
+            col = 0
+            row += 1
+        row += 1
+        col = 0
+        dataSplit = row
+        row = 0
+        #Conversation Data 
+        while dataSplit < len(data):
             CData.append([])
-            for i in range(0,8):
-                if "." in data[dSplt][i]:
-                    CData[j].append(data[dSplt][i])
+            for col in range(0,8):
+                if "." in data[dataSplit][col]:
+                    CData[row].append(data[dataSplit][col])
                 else:
-                    CData[j].append(int(data[dSplt][i]))
-            CData[j].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
-            CData[j].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
-            i = 0
-            j += 1
-            dSplt += 1
+                    CData[row].append(int(data[dataSplit][col]))
+            CData[row].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+            CData[row].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+            col = 0
+            row += 1
+            dataSplit += 1
 
 def TShark_Loop(data, EData,CData):
-        i=0
-        j = 0
-        l = 0
-        k = 0
-        while data[l]:
-            while k == k:
-                if EData[j][i] == data[l][0]:
-                    for i in range(0,7):
-                        if "." not in data[l][i]:
-                            EData[j][i] += int(data[l][i])
-                    EData[j][i+2]  = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-                    break
-                if EData[j][i]  == None:
+        #Endpoint Data
+        col=0
+        row = 0
+        dRow = 0
+        while data[dRow]:
+            while True:
+                try:
+                    if EData[row][col] == data[dRow][0]: #Update the Data, and update the time last seen.
+                        for col in range(0,7):
+                            if "." not in data[dRow][col]:
+                                EData[row][col] += int(data[dRow][col])#EDIT
+                        EData[row][col+2]  = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+                        break
+                except: #If the data does not exist to update, input the new data.
                     EData.append([])
-                    for i in range(0,7):
-                        if "." in data[l][i]:
-                            EData[j].append(data[j][i])
+                    for col in range(0,7):
+                        if "." in data[dRow][col]:
+                            EData[row].append(data[dRow][col])
                         else:
-                            EData[j].append(int(data[j][i]))
-                    EData[j].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
-                    EData[j].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+                            EData[row].append(int(data[dRow][col])) #EDIT
+                    EData[row].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+                    EData[row].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+                    EData[row].append(None) #Add Blank Sections for IPTrace Function
+                    EData[row].append(None)
+                    EData[row].append(None)
+                    EData[row].append(None)
                     break
-                j += 1    
-            i = 0
-            j = 0
-            l += 1
-        j += 1
-        i = 0
-        j = 0
-        chunk = l
-        l = 1
-
-        while l < len(data)-chunk:
-            while k == k:
-                if CData[j][i] == data[l+chunk][0] and CData[j][i+1] == data[l+chunk][1]:
-                    for i in range(0,8):
-                        if "." not in data[l+chunk][i]:
-                            CData[j][i]  += int(data[l+chunk][i])
-                    CData[j][i+2] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-                    break
-                if CData[j][i] == None:
-                    for i in range(0,8):
-                        if "." in data[l+chunk][i]:
-                           CData[j].append(data[l+chunk][i])
+                row += 1    
+            col = 0
+            row = 0
+            dRow += 1
+        row += 1
+        col = 0
+        row = 0
+        dataSplit = dRow
+        dRow = 1
+        #Conversation Data
+        while dRow < len(data)-dataSplit:
+            while True:
+                try:
+                    if CData[row][col] == data[dRow+dataSplit][0] and CData[row][col+1] == data[dRow+dataSplit][1]:
+                        for col in range(0,8):
+                            if "." not in data[dRow+dataSplit][col]:
+                                CData[row][col]  += int(data[dRow+dataSplit][col])
+                        CData[row][col+2] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+                        break
+                except: #If the data does not exist to update, input the new data.
+                    CData.append([])
+                    for col in range(0,8):
+                        if "." in data[dRow+dataSplit][col]:
+                           CData[row].append(data[dRow+dataSplit][col])
                         else:
-                            CData[j].append(int(data[l+chunk][i]))
-                    CData[j].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
-                    CData[j].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+                            CData[row].append(int(data[dRow+dataSplit][col]))
+                    CData[row].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+                    CData[row].append(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
                     break
-                j += 1
-            i = 0
-            j = 0
-            l += 1 
+                row += 1
+            col = 0
+            row = 0
+            dRow += 1 

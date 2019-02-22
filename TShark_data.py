@@ -1,8 +1,6 @@
 import os
 
 # Grab the Storage Path, and the FileList from the main program
-
-
 def TShark_data(Spath, fileList):
     #Strips the PCAP File into usefull information and stores it a temp txt file.
     os.system("tshark -r "+Spath+"TShark/" + fileList[0]+" -n  -z conv,ip -z endpoints,ip -T fields -e ipv6  >"+Spath+"Tables.txt") 

@@ -9,7 +9,7 @@ from mysql_DB import MYSQL_DB_ED
 from mysql_DB import MYSQL_DB_CD
 
 Spath = ""
-# Spath = "/home/arthur/SSD_Storage/" #Server Path, ONLY UNCOMMENT IN PRODUCTION
+#Spath = "PATH From ROOT" #Server Path, ONLY UNCOMMENT IN PRODUCTION
 # Infinte Loop - As long as their are files to process, the program will run.
 while True:
     files = path_verify(Spath)
