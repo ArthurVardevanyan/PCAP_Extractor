@@ -3,11 +3,11 @@ import os
 # Grab the Storage Path, and the FileList from the main program
 
 
-def TShark_data(Spath, fileList):
+def TShark_data(Spath, fileList, folder):
     data = []
     row = 0
     # Strips the PCAP File into usefull information and stores it a temp txt file.
-    os.system("tshark -r "+Spath+"TShark/" +
+    os.system("tshark -r "+Spath+ folder + "/" +
               fileList[0]+" -n  -z conv,ip -z endpoints,ip -T fields -e ipv6  >"+Spath+"Tables.txt")
     count = 0
     # Makes the data cleaner for scrubbing.

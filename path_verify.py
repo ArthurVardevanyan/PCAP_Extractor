@@ -3,8 +3,7 @@ import glob
 
 #Spath is the Storage Path from Root till the main folder in which the program runs.
 #This is needed because the cron job won't use the source folder as reference, instead is uses root as reference.
-def path_verify(Spath):
-    folder = "TShark"  # This is the subfolder where the generated pcap files are stored
+def path_verify(Spath, folder):
     # Grabs the Files (Contains the Date Modifer metedata as well)
     fileList = glob.glob(Spath+folder+"/*.pcap") #Gathers all the Files
     fileList.sort(key=os.path.getmtime)  # Sorts Oldset to Newest

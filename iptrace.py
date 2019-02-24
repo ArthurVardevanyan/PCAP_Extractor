@@ -14,7 +14,7 @@ def LHost(ip_address):
     except: 
         return None
   
-def ipexport(EData, i):
+def ipexport(EData):
    for ipData in range(0, len(EData)):
         if EData[ipData][9] == None and "192.168" not in EData[ipData][0] and "172." not in EData[ipData][0]: #External
             IpGeo = IpGeoL(EData[ipData][0]) #Function
