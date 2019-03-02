@@ -19,7 +19,5 @@ ipinfo<br/>
 TODO:
 Add Log File Support<br/>
 Better Expection Cathingt<br/>
-Add the ablity to create create MYSQL From scratch instead of making it before ever runing the program<br/>
-Don't drop the table to update the table. <br/>
 General Code Maintenance and Cleanup<br/>
 
